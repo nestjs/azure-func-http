@@ -1,11 +1,11 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    "ng-add": {
-      "description": "Adds Angular Universal Engine to the application without affecting any templates",
+    "nest-add": {
+      "description": "Adds Azure Functions HTTP template to the application without affecting any app files",
       "factory": "./install",
       "schema": "./install/schema.json",
-      "aliases": ["nest-engine-shell"]
+      "aliases": ["nest-azure-shell"]
     }
   }
 }

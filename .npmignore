@@ -1,6 +1,6 @@
 # source
 lib
-index.ts
+/index.ts
 package-lock.json
 tslint.json
 .prettierrc

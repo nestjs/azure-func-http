@@ -1,32 +1,8 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export interface Schema {
   /**
-   * Name or index of related client app.
+   * Application root directory
    */
-  clientProject: string;
-  /**
-   * The appId to use withServerTransition.
-   */
-  appId?: string;
-  /**
-   * The name of the main entry-point file.
-   */
-  main?: string;
-  /**
-   * The port for the Nest server.
-   */
-  serverPort?: number;
-  /**
-   * The name of the application directory.
-   */
-  appDir?: string;
+  rootDir?: string;
   /**
    * The name of the root module file
    */
