@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsNestEngineInstall",
+  "title": "Nest Engine Install Options Schema",
+  "type": "object",
+  "properties": {
+    "rootDir": {
+      "type": "string",
+      "description": "Application root directory.",
+      "default": "src"
+    },
+    "rootModuleFileName": {
+      "type": "string",
+      "format": "path",
+      "description": "The name of the root module file (without extension)",
+      "default": "app.module"
+    },
+    "rootModuleClassName": {
+      "type": "string",
+      "description": "The name of the root module class.",
+      "default": "AppModule"
+    },
+    "skipInstall": {
+      "description": "Skip installing dependency packages.",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": []
+}

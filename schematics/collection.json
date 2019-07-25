@@ -1,0 +1,11 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "nest-add": {
+      "description": "Adds Azure Functions HTTP template to the application without affecting any app files",
+      "factory": "./install",
+      "schema": "./install/schema.json",
+      "aliases": ["nest-azure-shell"]
+    }
+  }
+}
