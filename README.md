@@ -36,6 +36,10 @@ Using the Nest CLI:
 $ nest add @nestjs/azure-func-http
 ```
 
+## Tutorial
+
+You can read more about this integration [here](https://trilon.io/blog/deploy-nestjs-azure-functions).
+
 ## Additional options
 
 You can pass additional flags to customize the post-install schematic. For example, if your base application directory is different than `src`, use `--rootDir` flag:
