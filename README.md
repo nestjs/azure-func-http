@@ -36,6 +36,24 @@ Using the Nest CLI:
 $ nest add @nestjs/azure-func-http
 ```
 
+## Tutorial
+
+You can read more about this integration [here](https://trilon.io/blog/deploy-nestjs-azure-functions).
+
+## Additional options
+
+You can pass additional flags to customize the post-install schematic. For example, if your base application directory is different than `src`, use `--rootDir` flag:
+
+```bash
+$ nest add @nestjs/azure-func-http --rootDir app
+```
+
+Other available flags:
+
+- `rootModuleFileName` - the name of the root module file, default: `app.module`
+- `rootModuleClassName` - the name of the root module class, default: `AppModule`
+- `skipInstall` - skip installing dependencies, default: `false`
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
