@@ -5,6 +5,7 @@ import {
   mergeWith,
   Rule,
   SchematicContext,
+  SchematicsException,
   template,
   Tree,
   url
@@ -23,6 +24,16 @@ function addDependenciesAndScripts(): Rule {
       name: '@azure/functions',
       version: '^1.0.3'
     });
+    const pkgPath = '/package.json';
+    const buffer = host.read(pkgPath);
+    if (buffer === null) {
+      throw new SchematicsException('Could not find package.json');
+    }
+
+    const pkg = JSON.parse(buffer.toString());
+    pkg.scripts['start:azure'] = 'npm run build && func host start';
+
+    host.overwrite(pkgPath, JSON.stringify(pkg, null, 2));
     return host;
   };
 }
