@@ -28,6 +28,10 @@
 
 [Azure Functions](https://code.visualstudio.com/tutorials/functions-extension/getting-started) HTTP module for [Nest](https://github.com/nestjs/nest).
 
+---
+
+<a href="https://trilon.io/blog/deploy-nestjs-azure-functions" target="_blank">Full Article on NestJS & Azure Functions integration</a>.
+
 ## Installation
 
 Using the Nest CLI:
