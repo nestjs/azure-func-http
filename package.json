@@ -31,8 +31,8 @@
     "typescript": "3.6.2"
   },
   "dependencies": {
-    "@angular-devkit/schematics": "8.3.2",
-    "@schematics/angular": "8.3.2",
+    "@angular-devkit/schematics": "8.3.3",
+    "@schematics/angular": "8.3.3",
     "azure-function-express": "2.0.0"
   },
   "schematics": "./schematics/collection.json",
