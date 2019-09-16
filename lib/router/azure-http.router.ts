@@ -1,0 +1,108 @@
+import { HttpStatus, RequestMethod } from '@nestjs/common';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { AbstractHttpAdapter } from '@nestjs/core';
+import { RouterMethodFactory } from '@nestjs/core/helpers/router-method-factory';
+import * as cors from 'cors';
+import * as TRouter from 'trouter';
+import { AzureReply } from './azure-reply';
+import { AzureRequest } from './azure-request';
+
+export class AzureHttpRouter extends AbstractHttpAdapter {
+  private readonly routerMethodFactory = new RouterMethodFactory();
+
+  constructor() {
+    super(new TRouter());
+  }
+
+  public handle(context: Record<string, any>, request: any) {
+    const req = context.req;
+    const originalUrl = req.originalUrl as string;
+    const hostname = req.headers.host || '';
+    const path = originalUrl.slice(
+      originalUrl.indexOf(hostname) + hostname.length
+    );
+
+    const { params, handlers } = this.instance.find(req.method, path);
+    req.params = params;
+
+    if (handlers.length === 0) {
+      return this.handleNotFound(context, req.method, originalUrl);
+    }
+    const azureRequest = new AzureRequest(context);
+    const azureReply = new AzureReply(context);
+    const nextRoute = (i = 0) =>
+      handlers[i] &&
+      handlers[i](azureRequest, azureReply, () => nextRoute(i + 1));
+    nextRoute();
+  }
+
+  public handleNotFound(
+    context: Record<string, any>,
+    method: string,
+    originalUrl: string
+  ) {
+    context.res.status = HttpStatus.NOT_FOUND;
+    context.res.body = {
+      statusCode: HttpStatus.NOT_FOUND,
+      error: `Cannot ${method} ${originalUrl}`
+    };
+    context.done();
+    return;
+  }
+
+  public enableCors(options: CorsOptions) {
+    this.use(cors(options));
+  }
+
+  public reply(response: any, body: any, statusCode?: number) {
+    response.writeHead(statusCode);
+    response.end(body);
+  }
+
+  public status(response: any, statusCode: number) {
+    response.statusCode = statusCode;
+  }
+
+  public getHttpServer<T = any>(): T {
+    return this.instance as T;
+  }
+
+  public getInstance<T = any>(): T {
+    return this.instance as T;
+  }
+
+  public setHeader(response: any, name: string, value: string) {
+    return response.setHeader(name, value);
+  }
+
+  public getRequestMethod(request: any): string {
+    return request.method;
+  }
+
+  public getRequestUrl(request: any): string {
+    return request.url;
+  }
+
+  public createMiddlewareFactory(
+    requestMethod: RequestMethod
+  ): (path: string, callback: Function) => any {
+    return this.routerMethodFactory
+      .get(this.instance, requestMethod)
+      .bind(this.instance);
+  }
+
+  public getType(): string {
+    return 'azure-http';
+  }
+
+  public listen(port: any, ...args: any[]) {}
+  public render(response: any, view: string, options: any) {}
+  public redirect(response: any, statusCode: number, url: string) {}
+  public close() {}
+  public initHttpServer() {}
+  public useStaticAssets(options: any) {}
+  public setViewEngine(options: any) {}
+  public registerParserMiddleware() {}
+  public setNotFoundHandler(handler: Function) {}
+  public setErrorHandler(handler: Function) {}
+}
