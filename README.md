@@ -40,6 +40,16 @@ $ nest add @nestjs/azure-func-http
 
 You can read more about this integration [here](https://trilon.io/blog/deploy-nestjs-azure-functions).
 
+## Native routing
+
+If you don't need the compatibility with `express` library, you can use a native routing instead:
+
+```typescript
+const app = await NestFactory.create(AppModule, new AzureHttpRouter());
+```
+
+`AzureHttpRouter` is exported from `@nestjs/azure-func-http`. Since `AzureHttpRouter` doesn't use `express` underneath, the routing itself is much faster.
+
 ## Additional options
 
 You can pass additional flags to customize the post-install schematic. For example, if your base application directory is different than `src`, use `--rootDir` flag:
@@ -60,9 +70,9 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-* Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-* Website - [https://nestjs.com](https://nestjs.com/)
-* Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
