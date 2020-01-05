@@ -11,6 +11,7 @@ export class AzureHttpAdapterStatic {
     context: Context,
     req: HttpRequest
   ) {
+    req['_body'] = true;
     if (handler) {
       return handler(context, req);
     }

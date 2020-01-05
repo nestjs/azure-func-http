@@ -1,6 +1,6 @@
 {
   "name": "@nestjs/azure-func-http",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Nest - modern, fast, powerful node.js web framework (@azure-func-http)",
   "author": "Kamil Mysliwiec",
   "license": "MIT",
