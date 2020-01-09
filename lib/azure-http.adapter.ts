@@ -1,6 +1,6 @@
 import { Context, HttpRequest } from '@azure/functions';
 import { HttpServer, INestApplication } from '@nestjs/common';
-import { createHandler } from 'azure-function-express';
+import { createHandlerAdapter } from './adapter/azure-adapter';
 import { AzureHttpRouter } from './router';
 
 let handler: Function;
@@ -11,7 +11,6 @@ export class AzureHttpAdapterStatic {
     context: Context,
     req: HttpRequest
   ) {
-    req['_body'] = true;
     if (handler) {
       return handler(context, req);
     }
@@ -25,7 +24,7 @@ export class AzureHttpAdapterStatic {
       return ((adapter as any) as AzureHttpRouter).handle.bind(adapter);
     }
     const instance = app.getHttpAdapter().getInstance();
-    handler = createHandler(instance);
+    handler = createHandlerAdapter(instance);
     return handler;
   }
 

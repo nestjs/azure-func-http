@@ -16,10 +16,9 @@ export class AzureRequest extends Readable {
     this.headers = this.headers || {};
 
     // Recreate original request stream from body
-    const body =
-      context.req.body instanceof Buffer
-        ? context.req.body
-        : context.req.rawBody;
+    const body = Buffer.isBuffer(context.req.body)
+      ? context.req.body
+      : context.req.rawBody;
 
     if (body !== null && body !== undefined) {
       this.push(body);
