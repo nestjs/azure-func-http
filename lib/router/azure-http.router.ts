@@ -4,8 +4,7 @@ import { AbstractHttpAdapter } from '@nestjs/core';
 import { RouterMethodFactory } from '@nestjs/core/helpers/router-method-factory';
 import * as cors from 'cors';
 import * as TRouter from 'trouter';
-import { AzureReply } from '../adapter';
-import { AzureRequest } from '../adapter';
+import { AzureReply, AzureRequest } from '../adapter';
 
 export class AzureHttpRouter extends AbstractHttpAdapter {
   private readonly routerMethodFactory = new RouterMethodFactory();
@@ -17,10 +16,7 @@ export class AzureHttpRouter extends AbstractHttpAdapter {
   public handle(context: Record<string, any>, request: any) {
     const req = context.req;
     const originalUrl = req.originalUrl as string;
-    const hostname = req.headers.host || '';
-    const path = originalUrl.slice(
-      originalUrl.indexOf(hostname) + hostname.length
-    );
+    const path = new URL(originalUrl).pathname;
 
     const { params, handlers } = this.instance.find(req.method, path);
     req.params = params;
