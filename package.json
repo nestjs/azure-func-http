@@ -17,7 +17,8 @@
   "peerDependencies": {
     "@azure/functions": "^1.0.3",
     "@nestjs/common": "^6.0.0",
-    "@nestjs/core": "^6.0.0"
+    "@nestjs/core": "^6.0.0",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@azure/functions": "1.0.3",
@@ -34,7 +35,6 @@
     "@angular-devkit/schematics": "8.3.22",
     "@schematics/angular": "8.3.22",
     "cors": "2.8.5",
-    "reflect-metadata": "^0.1.13",
     "trouter": "3.1.0"
   },
   "schematics": "./schematics/collection.json",
