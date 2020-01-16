@@ -32,8 +32,8 @@
     "typescript": "3.7.4"
   },
   "dependencies": {
-    "@angular-devkit/schematics": "8.3.22",
-    "@schematics/angular": "8.3.22",
+    "@angular-devkit/schematics": "8.3.23",
+    "@schematics/angular": "8.3.23",
     "cors": "2.8.5",
     "trouter": "3.1.0"
   },
