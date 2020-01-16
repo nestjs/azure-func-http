@@ -29,7 +29,7 @@
     "lint-staged": "9.5.0",
     "prettier": "1.19.1",
     "ts-morph": "5.0.0",
-    "typescript": "3.7.4"
+    "typescript": "3.7.5"
   },
   "dependencies": {
     "@angular-devkit/schematics": "8.3.22",
