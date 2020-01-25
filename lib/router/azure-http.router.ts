@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { HttpStatus, RequestMethod } from '@nestjs/common';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { AbstractHttpAdapter } from '@nestjs/core';
@@ -77,6 +79,10 @@ export class AzureHttpRouter extends AbstractHttpAdapter {
 
   public getRequestUrl(request: any): string {
     return request.url;
+  }
+
+  public getRequestHostname(request: any): string {
+    return request.hostname;
   }
 
   public createMiddlewareFactory(
