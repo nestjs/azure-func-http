@@ -23,6 +23,8 @@
   },
   "devDependencies": {
     "@azure/functions": "1.0.3",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-angular": "^8.3.4",
     "@nestjs/common": "6.10.14",
     "@nestjs/core": "6.11.1",
     "@types/node": "11.15.0",
@@ -34,6 +36,7 @@
     "husky": "4.2.1",
     "lint-staged": "10.0.2",
     "prettier": "1.19.1",
+    "release-it": "^12.4.3",
     "ts-morph": "5.0.0",
     "typescript": "3.7.5"
   },
@@ -46,8 +49,13 @@
   "schematics": "./schematics/collection.json",
   "lint-staged": {
     "*.ts": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS"
+    }
   }
 }
