@@ -8,14 +8,16 @@
     "build": "npm run build:lib && npm run build:schematics",
     "build:lib": "tsc -p tsconfig.json",
     "build:schematics": "tsc -p tsconfig.schematics.json",
-    "lint": "eslint 'lib/**/*.ts' --fix",
+    "lint": "eslint --ext ts --fix lib",
     "precommit": "lint-staged",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public",
     "prepublish:next": "npm run build",
     "publish:next": "npm publish --access public --tag next",
     "prerelease": "npm run build",
-    "release": "release-it"
+    "release": "release-it",
+    "test": "jest -w 1 --no-cache --config jest.json",
+    "test:dev": "NODE_ENV=test npm run -s test -- --watchAll"
   },
   "peerDependencies": {
     "@azure/functions": "^1.0.3",
@@ -29,6 +31,7 @@
     "@commitlint/config-angular": "8.3.4",
     "@nestjs/common": "6.11.5",
     "@nestjs/core": "6.11.5",
+    "@nestjs/schematics": "^6.9.1",
     "@types/node": "11.15.0",
     "@typescript-eslint/eslint-plugin": "2.18.0",
     "@typescript-eslint/parser": "2.18.0",
@@ -45,8 +48,11 @@
   "dependencies": {
     "@angular-devkit/schematics": "8.3.23",
     "@schematics/angular": "8.3.23",
+    "@types/jest": "^25.1.1",
     "cors": "2.8.5",
-    "trouter": "3.1.0"
+    "jest": "^25.1.0",
+    "trouter": "3.1.0",
+    "ts-jest": "^25.0.0"
   },
   "schematics": "./schematics/collection.json",
   "lint-staged": {

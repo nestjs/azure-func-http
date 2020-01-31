@@ -38,17 +38,17 @@ function addDependenciesAndScripts(): Rule {
   };
 }
 
-export default function(options: AzureOptions): Rule {
+export default function (options: AzureOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     if (!options.skipInstall) {
       context.addTask(new NodePackageInstallTask());
     }
-    const rootSource = apply(url('./files/root'), [
+    const rootSource = apply(options.project ? url('./files/project') : url('./files/root'), [
       template({
         ...strings,
         ...(options as object),
-        rootDir: options.rootDir,
-        getRootDirectory: () => options.rootDir,
+        rootDir: options.sourceRoot,
+        getRootDirectory: () => options.sourceRoot,
         stripTsExtension: (s: string) => s.replace(/\.ts$/, ''),
         getRootModuleName: () => options.rootModuleClassName,
         getRootModulePath: () => options.rootModuleFileName

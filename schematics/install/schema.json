@@ -24,6 +24,14 @@
       "description": "Skip installing dependency packages.",
       "type": "boolean",
       "default": false
+    },
+    "sourceRoot": {
+      "type": "string",
+      "description": "The source root directory"
+    },
+    "project": {
+      "type": "string",
+      "description": "The project where generate the azure files."
     }
   },
   "required": []

@@ -15,4 +15,12 @@ export interface Schema {
    * Skip installing dependency packages.
    */
   skipInstall?: boolean;
+  /**
+   * The source root directory
+   */
+  sourceRoot: string;
+  /**
+   * The project where generate the azure files.
+   */
+  project?: string;
 }
