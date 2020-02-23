@@ -39,7 +39,7 @@
     "lint-staged": "10.0.7",
     "prettier": "1.19.1",
     "release-it": "12.6.1",
-    "ts-morph": "5.0.0",
+    "ts-morph": "7.0.0",
     "typescript": "3.8.2"
   },
   "dependencies": {
