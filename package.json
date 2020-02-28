@@ -40,7 +40,7 @@
     "prettier": "1.19.1",
     "release-it": "12.6.2",
     "ts-morph": "7.0.0",
-    "typescript": "3.8.2"
+    "typescript": "3.8.3"
   },
   "dependencies": {
     "@angular-devkit/schematics": "9.0.3",
