@@ -43,17 +43,20 @@ export default function(options: AzureOptions): Rule {
     if (!options.skipInstall) {
       context.addTask(new NodePackageInstallTask());
     }
-    const rootSource = apply(url('./files/root'), [
-      template({
-        ...strings,
-        ...(options as object),
-        rootDir: options.rootDir,
-        getRootDirectory: () => options.rootDir,
-        stripTsExtension: (s: string) => s.replace(/\.ts$/, ''),
-        getRootModuleName: () => options.rootModuleClassName,
-        getRootModulePath: () => options.rootModuleFileName
-      })
-    ]);
+    const rootSource = apply(
+      options.project ? url('./files/project') : url('./files/root'),
+      [
+        template({
+          ...strings,
+          ...(options as object),
+          rootDir: options.sourceRoot,
+          getRootDirectory: () => options.sourceRoot,
+          stripTsExtension: (s: string) => s.replace(/\.ts$/, ''),
+          getRootModuleName: () => options.rootModuleClassName,
+          getRootModulePath: () => options.rootModuleFileName
+        })
+      ]
+    );
 
     return chain([mergeWith(rootSource), addDependenciesAndScripts()]);
   };
