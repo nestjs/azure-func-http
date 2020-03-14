@@ -15,7 +15,7 @@ aliases:
 
 jobs:
   build:
-    working_directory: ~/nest-azure-storage
+    working_directory: ~/nest
     docker:
       - image: circleci/node:12
     steps:
@@ -35,9 +35,31 @@ jobs:
       - run:
           name: Build
           command: npm run build    
+    
+  unit_tests:
+    working_directory: ~/nest
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - restore_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Tests
+          command: npm run test 
 
 workflows:
   version: 2
   build-and-test:
     jobs:
       - build
+      - unit_tests:
+          requires:
+            - build
