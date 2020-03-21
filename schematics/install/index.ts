@@ -1,4 +1,4 @@
-import { strings } from '@angular-devkit/core';
+import { strings, parseJson } from '@angular-devkit/core';
 import {
   apply,
   chain,
@@ -16,6 +16,7 @@ import {
   NodeDependencyType
 } from '@schematics/angular/utility/dependencies';
 import { Schema as AzureOptions } from './schema';
+type UpdateJsonFn<T> = (obj: T) => T | void;
 
 function addDependenciesAndScripts(): Rule {
   return (host: Tree) => {
@@ -38,11 +39,51 @@ function addDependenciesAndScripts(): Rule {
   };
 }
 
+function updateJsonFile<T>(
+  host: Tree,
+  path: string,
+  callback: UpdateJsonFn<T>
+): Tree {
+  const source = host.read(path);
+  if (source) {
+    const sourceText = source.toString('utf-8');
+    const json = parseJson(sourceText);
+    callback((json as {}) as T);
+    host.overwrite(path, JSON.stringify(json, null, 2));
+  }
+  return host;
+}
+
 export default function(options: AzureOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     if (!options.skipInstall) {
       context.addTask(new NodePackageInstallTask());
     }
+    const projectName = options.project;
+    console.log(projectName);
+    if (projectName) {
+      let nestCliFileExists = host.exists('nest-cli.json');
+
+      if (nestCliFileExists) {
+        updateJsonFile(
+          host,
+          'nest-cli.json',
+          (optionsFile: Record<string, any>) => {
+            console.log(optionsFile);
+            if (optionsFile.projects[projectName].compilerOptions) {
+              optionsFile.projects[projectName].compilerOptions = {
+                ...optionsFile.projects[projectName].compilerOptions,
+                ...{
+                  webpack: true,
+                  webpackConfigPath: `apps/${projectName}/src/webpack.config.js`
+                }
+              };
+            }
+          }
+        );
+      }
+    }
+
     const rootSource = apply(
       options.project ? url('./files/project') : url('./files/root'),
       [
