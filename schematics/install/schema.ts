@@ -18,7 +18,7 @@ export interface Schema {
   /**
    * .
    */
-  sourceRoot: string;
+  sourceRoot?: string;
   /**
    * The project where generate the azure files.
    */

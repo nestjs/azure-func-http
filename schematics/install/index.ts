@@ -17,7 +17,7 @@ import {
 } from '@schematics/angular/utility/dependencies';
 import { Schema as AzureOptions } from './schema';
 type UpdateJsonFn<T> = (obj: T) => T | void;
-
+const DEFAULT_PATH_NAME = 'src';
 function addDependenciesAndScripts(): Rule {
   return (host: Tree) => {
     addPackageJsonDependency(host, {
@@ -60,7 +60,6 @@ export default function(options: AzureOptions): Rule {
       context.addTask(new NodePackageInstallTask());
     }
     const projectName = options.project;
-    console.log(projectName);
     if (projectName) {
       let nestCliFileExists = host.exists('nest-cli.json');
 
@@ -69,7 +68,6 @@ export default function(options: AzureOptions): Rule {
           host,
           'nest-cli.json',
           (optionsFile: Record<string, any>) => {
-            console.log(optionsFile);
             if (optionsFile.projects[projectName].compilerOptions) {
               optionsFile.projects[projectName].compilerOptions = {
                 ...optionsFile.projects[projectName].compilerOptions,
@@ -83,14 +81,15 @@ export default function(options: AzureOptions): Rule {
         );
       }
     }
-
+    const defaultSourceRoot =
+      options.sourceRoot !== undefined ? options.sourceRoot : DEFAULT_PATH_NAME;
     const rootSource = apply(
       options.project ? url('./files/project') : url('./files/root'),
       [
         template({
           ...strings,
-          ...(options as object),
-          rootDir: options.sourceRoot,
+          ...(options as AzureOptions),
+          rootDir: defaultSourceRoot,
           getRootDirectory: () => options.sourceRoot,
           stripTsExtension: (s: string) => s.replace(/\.ts$/, ''),
           getRootModuleName: () => options.rootModuleClassName,

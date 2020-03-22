@@ -29,11 +29,9 @@ describe('Schematic Tests Nest Add', () => {
     nestTree = await createTestNest(runner);
   });
 
-  it('should handle nest add for default app', async () => {
+  it('should add azure func for default setup', async () => {
     const options: Schema = {
-      sourceRoot: 'src',
       skipInstall: true,
-      rootDir: 'src',
       rootModuleFileName: 'app.module',
       rootModuleClassName: 'AppModule'
     };
@@ -68,20 +66,20 @@ describe('Schematic Tests Nest Add', () => {
     ]);
   });
 
-  it('should handle nest add for project', async () => {
+  it('should add azure-func for monorepo app', async () => {
+    const projectName = 'azure-2';
     const options: Schema = {
-      sourceRoot: '/libs/lib1/src',
       skipInstall: true,
-      rootDir: 'src',
-      project: 'lib1'
+      project: projectName,
+      sourceRoot: `apps/${projectName}/src`
     };
+
     await runner
       .runExternalSchematicAsync(
         '@nestjs/schematics',
-        'library',
+        'sub-app',
         {
-          name: 'lib1',
-          prefix: '@app'
+          name: projectName
         },
         nestTree
       )
@@ -90,6 +88,7 @@ describe('Schematic Tests Nest Add', () => {
     const tree = await runner
       .runSchematicAsync('nest-add', options, nestTree)
       .toPromise();
+
     const files: string[] = tree.files;
     expect(files).toEqual([
       '/.eslintrc.js',
@@ -106,37 +105,41 @@ describe('Schematic Tests Nest Add', () => {
       '/src/main.ts',
       '/test/app.e2e-spec.ts',
       '/test/jest-e2e.json',
-      '/libs/lib1/tsconfig.lib.json',
-      '/libs/lib1/src/index.ts',
-      '/libs/lib1/src/lib1.module.ts',
-      '/libs/lib1/src/lib1.service.spec.ts',
-      '/libs/lib1/src/lib1.service.ts',
-      '/libs/lib1/src/.funcignore',
-      '/libs/lib1/src/host.json',
-      '/libs/lib1/src/local.settings.json',
-      '/libs/lib1/src/main.azure.ts',
-      '/libs/lib1/src/proxies.json',
-      '/libs/lib1/src/webpack.config.js',
-      '/libs/lib1/src/main/function.json',
-      '/libs/lib1/src/main/index.ts',
-      '/libs/lib1/src/main/sample.dat'
+      '/apps/nestjs-azure-func-http/tsconfig.app.json',
+      `/apps/${projectName}/tsconfig.app.json`,
+      `/apps/${projectName}/src/app.controller.spec.ts`,
+      `/apps/${projectName}/src/app.controller.ts`,
+      `/apps/${projectName}/src/app.module.ts`,
+      `/apps/${projectName}/src/app.service.ts`,
+      `/apps/${projectName}/src/main.ts`,
+      `/apps/${projectName}/src/.funcignore`,
+      `/apps/${projectName}/src/host.json`,
+      `/apps/${projectName}/src/local.settings.json`,
+      `/apps/${projectName}/src/main.azure.ts`,
+      `/apps/${projectName}/src/proxies.json`,
+      `/apps/${projectName}/src/webpack.config.js`,
+      `/apps/${projectName}/src/main/function.json`,
+      `/apps/${projectName}/src/main/index.ts`,
+      `/apps/${projectName}/src/main/sample.dat`,
+      `/apps/${projectName}/test/app.e2e-spec.ts`,
+      `/apps/${projectName}/test/jest-e2e.json`
     ]);
   });
 
-  it('should have a nest-cli.json for project', async () => {
+  it('should have a nest-cli.json for monorepo app', async () => {
+    const projectName = 'azure-2';
     const options: Schema = {
-      sourceRoot: '/libs/lib1/src',
       skipInstall: true,
-      rootDir: 'src',
-      project: 'lib1'
+      project: projectName,
+      sourceRoot: `apps/${projectName}/src`
     };
+
     await runner
       .runExternalSchematicAsync(
         '@nestjs/schematics',
-        'library',
+        'sub-app',
         {
-          name: 'lib1',
-          prefix: '@app'
+          name: projectName
         },
         nestTree
       )
@@ -147,10 +150,12 @@ describe('Schematic Tests Nest Add', () => {
       .toPromise();
     const fileContent = getFileContent(tree, '/nest-cli.json');
     const parsedFile = JSON.parse(fileContent);
-    expect(parsedFile.projects.lib1.sourceRoot).toEqual('libs/lib1/src');
+    expect(parsedFile.projects[projectName].sourceRoot).toEqual(
+      `apps/${projectName}/src`
+    );
   });
 
-  it('should a nest-cli.json for default app', async () => {
+  it('should have a nest-cli.json for default app', async () => {
     const options: Schema = {
       sourceRoot: 'src',
       skipInstall: true,
@@ -167,20 +172,20 @@ describe('Schematic Tests Nest Add', () => {
     expect(fileContent).toContain(`"sourceRoot": "src"`);
   });
 
-  it('should import the app.module int main azure file for project', async () => {
+  it('should import the app.module int main azure file for monorepo app', async () => {
+    const projectName = 'azure-2';
     const options: Schema = {
-      sourceRoot: '/libs/lib1/src',
       skipInstall: true,
-      rootDir: 'src',
-      project: 'lib1'
+      project: projectName,
+      sourceRoot: `apps/${projectName}/src`
     };
+
     await runner
       .runExternalSchematicAsync(
         '@nestjs/schematics',
-        'library',
+        'sub-app',
         {
-          name: 'lib1',
-          prefix: '@app'
+          name: projectName
         },
         nestTree
       )
@@ -189,7 +194,10 @@ describe('Schematic Tests Nest Add', () => {
     const tree = await runner
       .runSchematicAsync('nest-add', options, nestTree)
       .toPromise();
-    const fileContent = getFileContent(tree, '/libs/lib1/src/main.azure.ts');
+    const fileContent = getFileContent(
+      tree,
+      `/apps/${projectName}/src/main.azure.ts`
+    );
 
     expect(fileContent).toContain(`import { AppModule } from './app.module';`);
   });
@@ -212,20 +220,20 @@ describe('Schematic Tests Nest Add', () => {
     expect(fileContent).toContain(`import { AppModule } from './app.module';`);
   });
 
-  it('should have the root dir for index file in main azure dir for project', async () => {
+  it('should have the root dir for index file in main azure dir for monorepo app', async () => {
+    const projectName = 'azure-2';
     const options: Schema = {
-      sourceRoot: '/libs/lib1/src',
       skipInstall: true,
-      rootDir: 'src',
-      project: 'lib1'
+      project: projectName,
+      sourceRoot: `apps/${projectName}/src`
     };
+
     await runner
       .runExternalSchematicAsync(
         '@nestjs/schematics',
-        'library',
+        'sub-app',
         {
-          name: 'lib1',
-          prefix: '@app'
+          name: projectName
         },
         nestTree
       )
@@ -234,7 +242,10 @@ describe('Schematic Tests Nest Add', () => {
     const tree = await runner
       .runSchematicAsync('nest-add', options, nestTree)
       .toPromise();
-    const fileContent = getFileContent(tree, '/libs/lib1/src/main/index.ts');
+    const fileContent = getFileContent(
+      tree,
+      `/apps/${projectName}/src/main/index.ts`
+    );
 
     expect(fileContent).toContain(`import { createApp } from '../main.azure';`);
   });
@@ -259,34 +270,35 @@ describe('Schematic Tests Nest Add', () => {
     );
   });
 
-  it('should import the webpack config for a project', async () => {
+  it('should import the webpack config for monorepo app', async () => {
+    const projectName = 'azure-2';
     const options: Schema = {
-      sourceRoot: '/libs/lib1/src',
       skipInstall: true,
-      rootDir: 'src',
-      project: 'lib1'
+      project: projectName,
+      sourceRoot: `apps/${projectName}/src`
     };
+
     await runner
       .runExternalSchematicAsync(
         '@nestjs/schematics',
-        'library',
+        'sub-app',
         {
-          name: 'lib1',
-          prefix: '@app'
+          name: projectName
         },
         nestTree
       )
       .toPromise();
-
     const tree = await runner
       .runSchematicAsync('nest-add', options, nestTree)
       .toPromise();
 
     const fileContent = getFileContent(
       tree,
-      '/libs/lib1/src/webpack.config.js'
+      `/apps/${projectName}/src/webpack.config.js`
     );
-    expect(fileContent).toContain(`filename: 'apps/lib1/main/index.js'`);
+    expect(fileContent).toContain(
+      `filename: 'apps/${projectName}/main/index.js'`
+    );
   });
 
   it('should not import the webpack config for a default app', async () => {
@@ -307,48 +319,35 @@ describe('Schematic Tests Nest Add', () => {
     expect(fileContent).toBeNull();
   });
 
-  it('should add a custom webpack config to the compilerOptions for a project', async () => {
+  it('should add a custom webpack config to the compilerOptions for monorepo app', async () => {
+    const projectName = 'azure-2';
     const options: Schema = {
-      sourceRoot: '/apps/azure-func-http/src',
       skipInstall: true,
-      rootDir: '',
-      project: 'azure-func-http'
+      project: projectName,
+      sourceRoot: `apps/${projectName}/src`
     };
-    // await runner
-    //   .runExternalSchematicAsync(
-    //     '@nestjs/schematics',
-    //     'application',
-    //     {
-    //       name: 'azure-func-http',
-    //       prefix: '@app'
-    //     },
-    //     nestTree
-    //   )
-    //   .toPromise();
 
     await runner
       .runExternalSchematicAsync(
         '@nestjs/schematics',
         'sub-app',
         {
-          name: 'azure-func-http'
+          name: projectName
         },
         nestTree
       )
       .toPromise();
-
     const tree = await runner
       .runSchematicAsync('nest-add', options, nestTree)
       .toPromise();
 
     const fileContent = getFileContent(tree, 'nest-cli.json');
     const parsedFile = JSON.parse(fileContent);
-
-    const compilerOptions = parsedFile.projects.lib1.compilerOptions;
-    expect(compilerOptions).toContain({
-      webpack: 'true',
-      webpackConfigPath: 'apps/lib1/src/webpack.config.js',
-      tsConfigPath: 'libs/lib1/tsconfig.lib.json'
+    const compilerOptions = parsedFile.projects[projectName].compilerOptions;
+    expect(compilerOptions).toEqual({
+      tsConfigPath: `apps/${projectName}/tsconfig.app.json`,
+      webpack: true,
+      webpackConfigPath: `apps/${projectName}/src/webpack.config.js`
     });
   });
 
