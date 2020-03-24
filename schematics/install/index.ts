@@ -8,7 +8,8 @@ import {
   SchematicsException,
   template,
   Tree,
-  url
+  url,
+  noop
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import {
@@ -53,34 +54,36 @@ function updateJsonFile<T>(
   }
   return host;
 }
+const applyProjectName = (projectName, host) => {
+  if (projectName) {
+    let nestCliFileExists = host.exists('nest-cli.json');
+
+    if (nestCliFileExists) {
+      updateJsonFile(
+        host,
+        'nest-cli.json',
+        (optionsFile: Record<string, any>) => {
+          if (optionsFile.projects[projectName].compilerOptions) {
+            optionsFile.projects[projectName].compilerOptions = {
+              ...optionsFile.projects[projectName].compilerOptions,
+              ...{
+                webpack: true,
+                webpackConfigPath: `apps/${projectName}/src/webpack.config.js`
+              }
+            };
+          }
+        }
+      );
+    }
+  }
+};
 
 export default function(options: AzureOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     if (!options.skipInstall) {
       context.addTask(new NodePackageInstallTask());
     }
-    const projectName = options.project;
-    if (projectName) {
-      let nestCliFileExists = host.exists('nest-cli.json');
 
-      if (nestCliFileExists) {
-        updateJsonFile(
-          host,
-          'nest-cli.json',
-          (optionsFile: Record<string, any>) => {
-            if (optionsFile.projects[projectName].compilerOptions) {
-              optionsFile.projects[projectName].compilerOptions = {
-                ...optionsFile.projects[projectName].compilerOptions,
-                ...{
-                  webpack: true,
-                  webpackConfigPath: `apps/${projectName}/src/webpack.config.js`
-                }
-              };
-            }
-          }
-        );
-      }
-    }
     const defaultSourceRoot =
       options.sourceRoot !== undefined ? options.sourceRoot : DEFAULT_PATH_NAME;
     const rootSource = apply(
@@ -90,7 +93,7 @@ export default function(options: AzureOptions): Rule {
           ...strings,
           ...(options as AzureOptions),
           rootDir: defaultSourceRoot,
-          getRootDirectory: () => options.sourceRoot,
+          getRootDirectory: () => defaultSourceRoot,
           stripTsExtension: (s: string) => s.replace(/\.ts$/, ''),
           getRootModuleName: () => options.rootModuleClassName,
           getRootModulePath: () => options.rootModuleFileName
@@ -98,6 +101,13 @@ export default function(options: AzureOptions): Rule {
       ]
     );
 
-    return chain([mergeWith(rootSource), addDependenciesAndScripts()]);
+    return chain([
+      (tree, context) =>
+        options.project
+          ? applyProjectName(options.project, host)
+          : noop()(tree, context),
+      mergeWith(rootSource),
+      addDependenciesAndScripts()
+    ]);
   };
 }
