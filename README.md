@@ -36,6 +36,21 @@ Using the Nest CLI:
 $ nest add @nestjs/azure-func-http
 ```
 
+Example output:
+
+```bash
+✔ Installation in progress... ☕
+CREATE /.funcignore (66 bytes)
+CREATE /host.json (23 bytes)
+CREATE /local.settings.json (116 bytes)
+CREATE /proxies.json (72 bytes)
+CREATE /main/function.json (294 bytes)
+CREATE /main/index.ts (287 bytes)
+CREATE /main/sample.dat (23 bytes)
+CREATE /src/main.azure.ts (321 bytes)
+UPDATE /package.json (1827 bytes)
+```
+
 ## Tutorial
 
 You can read more about this integration [here](https://trilon.io/blog/deploy-nestjs-azure-functions).
