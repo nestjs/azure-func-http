@@ -9,7 +9,8 @@ import {
   template,
   Tree,
   url,
-  noop
+  noop,
+  move
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import {
@@ -18,7 +19,7 @@ import {
 } from '@schematics/angular/utility/dependencies';
 import { Schema as AzureOptions } from './schema';
 type UpdateJsonFn<T> = (obj: T) => T | void;
-const DEFAULT_PATH_NAME = 'src';
+const DEFAULT_PATH_NAME = 'apps';
 function addDependenciesAndScripts(): Rule {
   return (host: Tree) => {
     addPackageJsonDependency(host, {
@@ -68,7 +69,7 @@ const applyProjectName = (projectName, host) => {
               ...optionsFile.projects[projectName].compilerOptions,
               ...{
                 webpack: true,
-                webpackConfigPath: `apps/${projectName}/src/webpack.config.js`
+                webpackConfigPath: `apps/${projectName}/webpack.config.js`
               }
             };
           }
@@ -83,17 +84,21 @@ export default function(options: AzureOptions): Rule {
     if (!options.skipInstall) {
       context.addTask(new NodePackageInstallTask());
     }
-
     const defaultSourceRoot =
-      options.sourceRoot !== undefined ? options.sourceRoot : DEFAULT_PATH_NAME;
+      options.project !== undefined ? options.sourceRoot : options.rootDir;
+    const defaultRoot =
+      options.project !== undefined
+        ? `${DEFAULT_PATH_NAME}/${options.project}`
+        : defaultSourceRoot;
     const rootSource = apply(
       options.project ? url('./files/project') : url('./files/root'),
       [
         template({
           ...strings,
           ...(options as AzureOptions),
-          rootDir: defaultSourceRoot,
-          getRootDirectory: () => defaultSourceRoot,
+          rootDir: defaultRoot,
+          sourceRoot: defaultSourceRoot,
+          getRootDirectory: () => defaultRoot,
           stripTsExtension: (s: string) => s.replace(/\.ts$/, ''),
           getRootModuleName: () => options.rootModuleClassName,
           getRootModulePath: () => options.rootModuleFileName
@@ -106,8 +111,8 @@ export default function(options: AzureOptions): Rule {
         options.project
           ? applyProjectName(options.project, host)
           : noop()(tree, context),
-      mergeWith(rootSource),
-      addDependenciesAndScripts()
+      addDependenciesAndScripts(),
+      mergeWith(rootSource)
     ]);
   };
 }

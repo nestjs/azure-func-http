@@ -10,7 +10,7 @@ import {
 import * as path from 'path';
 import { Schema } from './schema';
 
-const getFileContent = (tree: Tree, path: string): string => {
+const getFileContent = (tree: UnitTestTree, path: string): string => {
   const fileEntry: FileEntry = tree.get(path);
   if (!fileEntry) {
     throw new Error(`The file does not exist.`);
@@ -149,6 +149,7 @@ describe('Schematic Tests Nest Add', () => {
       const options: Schema = {
         skipInstall: true,
         project: projectName,
+        rootDir: `apps/${projectName}`,
         sourceRoot: `apps/${projectName}/src`
       };
 
@@ -185,6 +186,7 @@ describe('Schematic Tests Nest Add', () => {
         '/test/jest-e2e.json',
         '/apps/nestjs-azure-func-http/tsconfig.app.json',
         `/apps/${projectName}/tsconfig.app.json`,
+        `/apps/${projectName}/webpack.config.js`,
         `/apps/${projectName}/src/app.controller.spec.ts`,
         `/apps/${projectName}/src/app.controller.ts`,
         `/apps/${projectName}/src/app.module.ts`,
@@ -195,7 +197,6 @@ describe('Schematic Tests Nest Add', () => {
         `/apps/${projectName}/src/local.settings.json`,
         `/apps/${projectName}/src/main.azure.ts`,
         `/apps/${projectName}/src/proxies.json`,
-        `/apps/${projectName}/src/webpack.config.js`,
         `/apps/${projectName}/src/main/function.json`,
         `/apps/${projectName}/src/main/index.ts`,
         `/apps/${projectName}/src/main/sample.dat`,
@@ -302,6 +303,7 @@ describe('Schematic Tests Nest Add', () => {
       const options: Schema = {
         skipInstall: true,
         project: projectName,
+        rootDir: `apps/${projectName}`,
         sourceRoot: `apps/${projectName}/src`
       };
 
@@ -321,7 +323,7 @@ describe('Schematic Tests Nest Add', () => {
 
       const fileContent = getFileContent(
         tree,
-        `/apps/${projectName}/src/webpack.config.js`
+        `/apps/${projectName}/webpack.config.js`
       );
       expect(fileContent).toContain(
         `filename: 'apps/${projectName}/main/index.js'`
@@ -356,7 +358,7 @@ describe('Schematic Tests Nest Add', () => {
       expect(compilerOptions).toEqual({
         tsConfigPath: `apps/${projectName}/tsconfig.app.json`,
         webpack: true,
-        webpackConfigPath: `apps/${projectName}/src/webpack.config.js`
+        webpackConfigPath: `apps/${projectName}/webpack.config.js`
       });
     });
 
@@ -365,6 +367,7 @@ describe('Schematic Tests Nest Add', () => {
       const options: Schema = {
         skipInstall: true,
         project: projectName,
+        rootDir: `apps.${projectName}`,
         sourceRoot: `apps/${projectName}/src`
       };
 
@@ -388,7 +391,7 @@ describe('Schematic Tests Nest Add', () => {
       );
       const parsedFile = JSON.parse(fileContent);
       expect(parsedFile.scriptFile).toEqual(
-        '../../../../dist/apps/azure-2/src/main/index.js'
+        '../../../../dist/apps/azure-2/main/index.js'
       );
     });
   });
