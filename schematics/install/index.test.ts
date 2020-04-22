@@ -44,9 +44,9 @@ describe('Schematic Tests Nest Add', () => {
       expect(files).toEqual([
         '/.eslintrc.js',
         '/.prettierrc',
+        '/README.md',
         '/nest-cli.json',
         '/package.json',
-        '/README.md',
         '/tsconfig.build.json',
         '/tsconfig.json',
         '/.funcignore',
@@ -172,9 +172,9 @@ describe('Schematic Tests Nest Add', () => {
       expect(files).toEqual([
         '/.eslintrc.js',
         '/.prettierrc',
+        '/README.md',
         '/nest-cli.json',
         '/package.json',
-        '/README.md',
         '/tsconfig.build.json',
         '/tsconfig.json',
         '/src/app.controller.spec.ts',
