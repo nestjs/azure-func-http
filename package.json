@@ -52,7 +52,7 @@
     "cors": "2.8.5",
     "jest": "25.3.0",
     "trouter": "3.1.0",
-    "ts-jest": "25.3.1"
+    "ts-jest": "26.0.0"
   },
   "schematics": "./schematics/collection.json",
   "lint-staged": {
