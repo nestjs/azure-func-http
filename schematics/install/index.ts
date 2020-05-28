@@ -2,6 +2,8 @@ import { strings, parseJson } from '@angular-devkit/core';
 import {
   apply,
   chain,
+  FileEntry,
+  forEach,
   mergeWith,
   Rule,
   SchematicContext,
@@ -69,7 +71,7 @@ const applyProjectName = (projectName, host) => {
               ...optionsFile.projects[projectName].compilerOptions,
               ...{
                 webpack: true,
-                webpackConfigPath: `apps/${projectName}/webpack.config.js`
+                webpackConfigPath: `${projectName}/webpack.config.js`
               }
             };
           }
@@ -79,29 +81,43 @@ const applyProjectName = (projectName, host) => {
   }
 };
 
-export default function(options: AzureOptions): Rule {
+const rootFiles = [
+  '/.funcignore',
+  '/host.json',
+  '/local.settings.json',
+  '/proxies.json'
+];
+
+const validateExistingRootFiles = (host: Tree, file: FileEntry) => {
+  console.log(file);
+
+  return rootFiles.includes(file.path) && host.exists(file.path);
+};
+
+export default function (options: AzureOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
     if (!options.skipInstall) {
       context.addTask(new NodePackageInstallTask());
     }
     const defaultSourceRoot =
       options.project !== undefined ? options.sourceRoot : options.rootDir;
-    const defaultRoot =
-      options.project !== undefined
-        ? `${DEFAULT_PATH_NAME}/${options.project}`
-        : defaultSourceRoot;
     const rootSource = apply(
       options.project ? url('./files/project') : url('./files/root'),
       [
         template({
           ...strings,
           ...(options as AzureOptions),
-          rootDir: defaultRoot,
+          rootDir: options.rootDir,
           sourceRoot: defaultSourceRoot,
-          getRootDirectory: () => defaultRoot,
+          getRootDirectory: () => options.rootDir,
+          getProjectName: () => options.project,
           stripTsExtension: (s: string) => s.replace(/\.ts$/, ''),
           getRootModuleName: () => options.rootModuleClassName,
           getRootModulePath: () => options.rootModuleFileName
+        }),
+        forEach((file: FileEntry) => {
+          if (validateExistingRootFiles(host, file)) return null;
+          return file;
         })
       ]
     );
