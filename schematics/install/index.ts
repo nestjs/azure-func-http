@@ -89,8 +89,6 @@ const rootFiles = [
 ];
 
 const validateExistingRootFiles = (host: Tree, file: FileEntry) => {
-  console.log(file);
-
   return rootFiles.includes(file.path) && host.exists(file.path);
 };
 
