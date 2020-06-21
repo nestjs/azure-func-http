@@ -28,8 +28,8 @@
   },
   "devDependencies": {
     "@azure/functions": "1.2.2",
-    "@commitlint/cli": "8.3.5",
-    "@commitlint/config-angular": "8.3.4",
+    "@commitlint/cli": "9.0.1",
+    "@commitlint/config-angular": "9.0.1",
     "@nestjs/common": "7.2.0",
     "@nestjs/core": "7.2.0",
     "@nestjs/schematics": "7.0.1",
