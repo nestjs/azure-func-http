@@ -46,8 +46,8 @@
     "typescript": "3.9.6"
   },
   "dependencies": {
-    "@angular-devkit/schematics": "10.0.0",
-    "@schematics/angular": "10.0.0",
+    "@angular-devkit/schematics": "10.0.3",
+    "@schematics/angular": "10.0.3",
     "@types/jest": "26.0.4",
     "cors": "2.8.5",
     "jest": "26.1.0",
