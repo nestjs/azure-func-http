@@ -4,8 +4,8 @@ import { <%= getRootModuleName() %> } from './<%= getRootModulePath() %>';
 
 export async function createApp(): Promise<INestApplication> {
   const app = await NestFactory.create(<%= getRootModuleName() %>);
-  app.setGlobalPrefix('api');
-  
+  app.setGlobalPrefix('api/<%= getProjectName() %>');
+
   await app.init();
   return app;
 }

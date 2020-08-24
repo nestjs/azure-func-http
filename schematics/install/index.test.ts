@@ -177,6 +177,10 @@ describe('Schematic Tests Nest Add', () => {
         '/package.json',
         '/tsconfig.build.json',
         '/tsconfig.json',
+        '/.funcignore',
+        '/host.json',
+        '/local.settings.json',
+        '/proxies.json',
         '/src/app.controller.spec.ts',
         '/src/app.controller.ts',
         '/src/app.module.ts',
@@ -186,22 +190,18 @@ describe('Schematic Tests Nest Add', () => {
         '/test/jest-e2e.json',
         '/apps/nestjs-azure-func-http/tsconfig.app.json',
         `/apps/${projectName}/tsconfig.app.json`,
-        `/apps/${projectName}/webpack.config.js`,
         `/apps/${projectName}/src/app.controller.spec.ts`,
         `/apps/${projectName}/src/app.controller.ts`,
         `/apps/${projectName}/src/app.module.ts`,
         `/apps/${projectName}/src/app.service.ts`,
         `/apps/${projectName}/src/main.ts`,
-        `/apps/${projectName}/src/.funcignore`,
-        `/apps/${projectName}/src/host.json`,
-        `/apps/${projectName}/src/local.settings.json`,
         `/apps/${projectName}/src/main.azure.ts`,
-        `/apps/${projectName}/src/proxies.json`,
-        `/apps/${projectName}/src/main/function.json`,
-        `/apps/${projectName}/src/main/index.ts`,
-        `/apps/${projectName}/src/main/sample.dat`,
         `/apps/${projectName}/test/app.e2e-spec.ts`,
-        `/apps/${projectName}/test/jest-e2e.json`
+        `/apps/${projectName}/test/jest-e2e.json`,
+        `/${projectName}/function.json`,
+        `/${projectName}/index.ts`,
+        `/${projectName}/sample.dat`,
+        `/${projectName}/webpack.config.js`
       ]);
     });
 
@@ -288,13 +288,10 @@ describe('Schematic Tests Nest Add', () => {
       const tree = await runner
         .runSchematicAsync('nest-add', options, nestTree)
         .toPromise();
-      const fileContent = getFileContent(
-        tree,
-        `/apps/${projectName}/src/main/index.ts`
-      );
+      const fileContent = getFileContent(tree, `/${projectName}/index.ts`);
 
       expect(fileContent).toContain(
-        `import { createApp } from '../main.azure';`
+        `import { createApp } from '../apps/${projectName}/src/main.azure';`
       );
     });
 
@@ -323,11 +320,9 @@ describe('Schematic Tests Nest Add', () => {
 
       const fileContent = getFileContent(
         tree,
-        `/apps/${projectName}/webpack.config.js`
+        `/${projectName}/webpack.config.js`
       );
-      expect(fileContent).toContain(
-        `filename: 'apps/${projectName}/main/index.js'`
-      );
+      expect(fileContent).toContain(`filename: '${projectName}/index.js'`);
     });
 
     it('should add a custom webpack config to the compilerOptions for monorepo app', async () => {
@@ -358,7 +353,7 @@ describe('Schematic Tests Nest Add', () => {
       expect(compilerOptions).toEqual({
         tsConfigPath: `apps/${projectName}/tsconfig.app.json`,
         webpack: true,
-        webpackConfigPath: `apps/${projectName}/webpack.config.js`
+        webpackConfigPath: `${projectName}/webpack.config.js`
       });
     });
 
@@ -385,14 +380,9 @@ describe('Schematic Tests Nest Add', () => {
         .runSchematicAsync('nest-add', options, nestTree)
         .toPromise();
 
-      const fileContent = getFileContent(
-        tree,
-        `apps/${projectName}/src/main/function.json`
-      );
+      const fileContent = getFileContent(tree, `${projectName}/function.json`);
       const parsedFile = JSON.parse(fileContent);
-      expect(parsedFile.scriptFile).toEqual(
-        '../../../../dist/apps/azure-2/main/index.js'
-      );
+      expect(parsedFile.scriptFile).toEqual(`../dist/${projectName}/index.js`);
     });
   });
 
