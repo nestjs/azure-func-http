@@ -57,10 +57,21 @@ You can read more about this integration [here](https://trilon.io/blog/deploy-ne
 
 ## Native routing
 
-If you don't need the compatibility with `express` library, you can use a native routing instead:
+If you don't need the compatibility with `express` library, you can use a native routing instead. When you use azure native routing, make sure you refer the application instance to a static variable so it can survive between invocation. See the below issue for explaination:
+https://github.com/kubeless/kubeless/issues/943#issuecomment-435812291
 
 ```typescript
+class AppModule {
+  static app: any = null;
+  static setApp(app) {
+    this.app = app;
+  }
+}
+
 const app = await NestFactory.create(AppModule, new AzureHttpRouter());
+if (!AppModule.app) {
+  AppModule.app = await NestFactory.create(AppModule, new AzureHttpRouter());
+}
 ```
 
 `AzureHttpRouter` is exported from `@nestjs/azure-func-http`. Since `AzureHttpRouter` doesn't use `express` underneath, the routing itself is much faster.
