@@ -27,7 +27,7 @@
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
-    "@azure/functions": "1.2.2",
+    "@azure/functions": "1.2.3",
     "@commitlint/cli": "11.0.0",
     "@commitlint/config-angular": "11.0.0",
     "@nestjs/common": "7.6.6",
