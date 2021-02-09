@@ -1,8 +1,4 @@
-import {
-  Tree,
-  FileEntry,
-  CircularCollectionException
-} from '@angular-devkit/schematics';
+import { FileEntry, Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
   UnitTestTree
@@ -190,11 +186,11 @@ describe('Schematic Tests Nest Add', () => {
         '/test/jest-e2e.json',
         '/apps/nestjs-azure-func-http/tsconfig.app.json',
         `/apps/${projectName}/tsconfig.app.json`,
-        `/apps/${projectName}/src/app.controller.spec.ts`,
-        `/apps/${projectName}/src/app.controller.ts`,
-        `/apps/${projectName}/src/app.module.ts`,
-        `/apps/${projectName}/src/app.service.ts`,
         `/apps/${projectName}/src/main.ts`,
+        `/apps/${projectName}/src/${projectName}.controller.spec.ts`,
+        `/apps/${projectName}/src/${projectName}.controller.ts`,
+        `/apps/${projectName}/src/${projectName}.module.ts`,
+        `/apps/${projectName}/src/${projectName}.service.ts`,
         `/apps/${projectName}/src/main.azure.ts`,
         `/apps/${projectName}/test/app.e2e-spec.ts`,
         `/apps/${projectName}/test/jest-e2e.json`,
