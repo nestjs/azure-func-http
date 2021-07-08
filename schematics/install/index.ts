@@ -1,18 +1,15 @@
-import { strings, parseJson } from '@angular-devkit/core';
+import { parseJson, strings } from '@angular-devkit/core';
 import {
   apply,
   chain,
   FileEntry,
   forEach,
-  mergeWith,
-  Rule,
+  mergeWith, noop, Rule,
   SchematicContext,
   SchematicsException,
   template,
   Tree,
-  url,
-  noop,
-  move
+  url
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import {
@@ -20,8 +17,9 @@ import {
   NodeDependencyType
 } from '@schematics/angular/utility/dependencies';
 import { Schema as AzureOptions } from './schema';
+
 type UpdateJsonFn<T> = (obj: T) => T | void;
-const DEFAULT_PATH_NAME = 'apps';
+
 function addDependenciesAndScripts(): Rule {
   return (host: Tree) => {
     addPackageJsonDependency(host, {

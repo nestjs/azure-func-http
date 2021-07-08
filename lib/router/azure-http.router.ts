@@ -5,7 +5,7 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 import { AbstractHttpAdapter } from '@nestjs/core';
 import { RouterMethodFactory } from '@nestjs/core/helpers/router-method-factory';
 import * as cors from 'cors';
-import * as TRouter from 'trouter';
+import TRouter from 'trouter';
 import { AzureReply, AzureRequest } from '../adapter';
 
 export class AzureHttpRouter extends AbstractHttpAdapter {
