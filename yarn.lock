@@ -751,10 +751,10 @@
     tslib "2.3.0"
     uuid "8.3.2"
 
-"@nestjs/schematics@8.0.1":
-  version "8.0.1"
-  resolved "https://registry.npmjs.org/@nestjs/schematics/-/schematics-8.0.1.tgz"
-  integrity sha512-rD/eqpguJpjOVI4uK1MOpqC1vPz+XvC/xT1IYiWDFU9rdJMVhHC5maTKVs/RjkwYRmPzNRTWAoMV3yOD/jC+gw==
+"@nestjs/schematics@8.0.2":
+  version "8.0.2"
+  resolved "https://registry.npmjs.org/@nestjs/schematics/-/schematics-8.0.2.tgz"
+  integrity sha512-iWtpXfn1Zh4Vm37BzY8OSJ60Y9TqNOjk8J+KLIwcql9EuP+0C/C4WUn+vIQMfmnut3MxRmAYFE2B/LFYrjGC5Q==
   dependencies:
     "@angular-devkit/core" "12.0.5"
     "@angular-devkit/schematics" "12.0.5"
