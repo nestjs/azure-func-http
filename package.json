@@ -50,7 +50,7 @@
     "@schematics/angular": "12.1.4",
     "@types/jest": "26.0.24",
     "cors": "2.8.5",
-    "jest": "27.0.6",
+    "jest": "27.2.5",
     "trouter": "3.2.0",
     "ts-jest": "27.0.4"
   },
