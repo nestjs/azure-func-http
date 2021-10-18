@@ -48,7 +48,7 @@
   "dependencies": {
     "@angular-devkit/schematics": "12.2.10",
     "@schematics/angular": "12.2.10",
-    "@types/jest": "26.0.24",
+    "@types/jest": "27.0.2",
     "cors": "2.8.5",
     "jest": "27.2.5",
     "trouter": "3.2.0",
