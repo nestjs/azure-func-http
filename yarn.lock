@@ -4720,10 +4720,10 @@ registry-url@^5.0.0:
   dependencies:
     rc "^1.2.8"
 
-release-it@14.11.6:
-  version "14.11.6"
-  resolved "https://registry.npmjs.org/release-it/-/release-it-14.11.6.tgz"
-  integrity sha512-6BNcuzFZHThBUBJ/xYw/bxZ+58CAwrwf1zgmjq2Ibl3nlDZbjphHG6iqxkJu7mZ8TIWs6NjloEAhqpjeXoN//Q==
+release-it@14.11.7:
+  version "14.11.7"
+  resolved "https://registry.npmjs.org/release-it/-/release-it-14.11.7.tgz"
+  integrity sha512-m4p9+x6AEQPczc96Jyg6dGFeovpJVgRCtA1lxeIgTmQVt9dutYPkkjZeJngZgUJ17/Lb1bx6ZzW2qsKmopKnbQ==
   dependencies:
     "@iarna/toml" "2.2.5"
     "@octokit/rest" "18.10.0"
