@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsNestEngineInstall",
+  "$id": "SchematicsNestEngineInstall",
   "title": "Nest Engine Install Options Schema",
   "type": "object",
   "properties": {
