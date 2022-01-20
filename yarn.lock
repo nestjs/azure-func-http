@@ -749,20 +749,20 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@nestjs/common@8.2.5":
-  version "8.2.5"
-  resolved "https://registry.npmjs.org/@nestjs/common/-/common-8.2.5.tgz"
-  integrity sha512-8VOZmHcCyhBtfvxehDfudsCrNghUoqDpZA5W8d/PUhMgz4Y1eT0M2ENBIuxr3C3j1vLypFOo30La2ymfQlOC8Q==
+"@nestjs/common@8.2.6":
+  version "8.2.6"
+  resolved "https://registry.npmjs.org/@nestjs/common/-/common-8.2.6.tgz"
+  integrity sha512-flLYSXunxcKyjbYddrhwbc49uE705MxBt85rS3mHyhDbAIPSGGeZEqME44YyAzCg1NTfJSNe7ztmOce5kNkb9A==
   dependencies:
     axios "0.24.0"
     iterare "1.2.1"
     tslib "2.3.1"
     uuid "8.3.2"
 
-"@nestjs/core@8.2.5":
-  version "8.2.5"
-  resolved "https://registry.npmjs.org/@nestjs/core/-/core-8.2.5.tgz"
-  integrity sha512-R0vp0VlAQFP7qBTZMzMspwOCO6MpsMJON/MsrfHVGgZS5Sd5DInfboWhe2COPnAr+VAT0o4FAKObW08Pdb5hMg==
+"@nestjs/core@8.2.6":
+  version "8.2.6"
+  resolved "https://registry.npmjs.org/@nestjs/core/-/core-8.2.6.tgz"
+  integrity sha512-NwPcEIMmCsucs3QaDlQvkoU1FlFM2wm/WjaqLQhkSoIEmAR1gNtBo88f5io5cpMwCo1k5xYhqGlaSl6TfngwWQ==
   dependencies:
     "@nuxtjs/opencollective" "0.3.2"
     fast-safe-stringify "2.1.1"
