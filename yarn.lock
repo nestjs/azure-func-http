@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular-devkit/core@12.2.15":
-  version "12.2.15"
-  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-12.2.15.tgz"
-  integrity sha512-q4J5bZBlXmFrQXdwIVUr4uC/KvhXsOJRVEZXx9/CPjCSjXdMtXNC1f8WPzE9rbZ+GBPMs90JOMrQdKMAKD51lg==
+"@angular-devkit/core@12.2.16":
+  version "12.2.16"
+  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-12.2.16.tgz"
+  integrity sha512-cnVtUYSET27B5mRIBp38mpKIX0iHv/hWKiPo74WCGrNwTgwmMHngjgQ4ySn/w1W4s8LL6TDW55ZkRdwyk8TVMQ==
   dependencies:
     ajv "8.6.2"
     ajv-formats "2.1.0"
@@ -26,12 +26,12 @@
     rxjs "6.6.7"
     source-map "0.7.3"
 
-"@angular-devkit/schematics@12.2.15":
-  version "12.2.15"
-  resolved "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-12.2.15.tgz"
-  integrity sha512-/q+FvHCemafRqLwNwpqzcsy5Lm06cgRC263/FfddcaeqSekwgSdUJByYDEr29WAUUt+KJX3dJ6jBTfx8a6XQ5g==
+"@angular-devkit/schematics@12.2.16":
+  version "12.2.16"
+  resolved "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-12.2.16.tgz"
+  integrity sha512-ToyZBCGilSeeLmhAxmeJ0PykmbKLoME+uK78gC64xJtNu9e3oVnmog8b8g9Ay9hTwZJ96HvNa16po11Gfbbn6A==
   dependencies:
-    "@angular-devkit/core" "12.2.15"
+    "@angular-devkit/core" "12.2.16"
     ora "5.4.1"
     rxjs "6.6.7"
 
@@ -915,13 +915,13 @@
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
 
-"@schematics/angular@12.2.15":
-  version "12.2.15"
-  resolved "https://registry.npmjs.org/@schematics/angular/-/angular-12.2.15.tgz"
-  integrity sha512-ZikKBRBNcE3+BkV9EGsCrpRQ4uhQ1dFNKff9l65tIeXtJcG0RFmbNmiqVwv60sXXqYIVtHlDuuB2+5+heMYHpQ==
+"@schematics/angular@12.2.16":
+  version "12.2.16"
+  resolved "https://registry.npmjs.org/@schematics/angular/-/angular-12.2.16.tgz"
+  integrity sha512-EITPMaRE7iCosf0nyZFOpxTDAiPD3qm4QUxHKcwIaJTrzi89nBoUubw8+pFy5/Gtpadww80YD8ODV64B1bPGMA==
   dependencies:
-    "@angular-devkit/core" "12.2.15"
-    "@angular-devkit/schematics" "12.2.15"
+    "@angular-devkit/core" "12.2.16"
+    "@angular-devkit/schematics" "12.2.16"
     jsonc-parser "3.0.0"
 
 "@sindresorhus/is@^0.14.0":
