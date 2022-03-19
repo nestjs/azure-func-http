@@ -4758,10 +4758,10 @@ registry-url@^5.0.0:
   dependencies:
     rc "^1.2.8"
 
-release-it@14.12.5:
-  version "14.12.5"
-  resolved "https://registry.npmjs.org/release-it/-/release-it-14.12.5.tgz"
-  integrity sha512-mGFbbX8eEKMOhfjq5mZAgGppT8CME1T+vj6xA5tAPYSCuPpcNEDjqiG1tJfPy/XImZI4uS3U6pNP5KyDpy9etg==
+release-it@14.13.0:
+  version "14.13.0"
+  resolved "https://registry.npmjs.org/release-it/-/release-it-14.13.0.tgz"
+  integrity sha512-tiVocA1QcAC0fgMBSIq8IBfRVmGCvLTkG5Mxdl2WmH91tLuzFmSsDUgpTJGhIBo+ly+oe+vsr7EZ+rkCDNuZoQ==
   dependencies:
     "@iarna/toml" "2.2.5"
     "@octokit/rest" "18.12.0"
@@ -4789,6 +4789,7 @@ release-it@14.12.5:
     update-notifier "5.1.0"
     url-join "4.0.1"
     uuid "8.3.2"
+    wildcard-match "5.1.2"
     yaml "1.10.2"
     yargs-parser "20.2.9"
 
@@ -5688,6 +5689,11 @@ widest-line@^3.1.0:
   integrity sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
   dependencies:
     string-width "^4.0.0"
+
+wildcard-match@5.1.2:
+  version "5.1.2"
+  resolved "https://registry.npmjs.org/wildcard-match/-/wildcard-match-5.1.2.tgz"
+  integrity sha512-qNXwI591Z88c8bWxp+yjV60Ch4F8Riawe3iGxbzquhy8Xs9m+0+SLFBGb/0yCTIDElawtaImC37fYZ+dr32KqQ==
 
 windows-release@^4.0.0:
   version "4.0.0"
