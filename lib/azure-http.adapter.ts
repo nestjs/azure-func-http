@@ -15,14 +15,18 @@ export class AzureHttpAdapterStatic {
     if (handler) {
       return handler(context, req);
     }
-    this.createHandler(createApp).then(fn => fn(context, req));
+    this.createHandler(createApp).then((fn) => fn(context, req));
   }
 
-  private async createHandler(createApp: () => Promise<INestApplication>) {
+  private async createHandler(
+    createApp: () => Promise<
+      Omit<INestApplication, 'startAllMicroservicesAsync' | 'listenAsync'>
+    >
+  ) {
     const app = await createApp();
     const adapter = app.getHttpAdapter();
     if (this.hasGetTypeMethod(adapter) && adapter.getType() === 'azure-http') {
-      return ((adapter as any) as AzureHttpRouter).handle.bind(adapter);
+      return (adapter as any as AzureHttpRouter).handle.bind(adapter);
     }
     const instance = app.getHttpAdapter().getInstance();
     handler = createHandlerAdapter(instance);
