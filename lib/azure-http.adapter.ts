@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Context, HttpRequest } from '@azure/functions';
 import { HttpServer, INestApplication } from '@nestjs/common';
 import { createHandlerAdapter } from './adapter/azure-adapter';
