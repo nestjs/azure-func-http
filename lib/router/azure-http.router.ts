@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { HttpStatus, RequestMethod } from '@nestjs/common';
+import {
+  HttpStatus,
+  InternalServerErrorException,
+  NotImplementedException,
+  RequestMethod,
+  VersioningOptions
+} from '@nestjs/common';
+import { VersionValue } from '@nestjs/common/interfaces';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { AbstractHttpAdapter } from '@nestjs/core';
 import { RouterMethodFactory } from '@nestjs/core/helpers/router-method-factory';
@@ -62,12 +69,20 @@ export class AzureHttpRouter extends AbstractHttpAdapter {
     response.statusCode = statusCode;
   }
 
+  public end(response: any, message?: string) {
+    return response.end(message);
+  }
+
   public getHttpServer<T = any>(): T {
     return this.instance as T;
   }
 
   public getInstance<T = any>(): T {
     return this.instance as T;
+  }
+
+  public isHeadersSent(response: any): boolean {
+    return response.headersSent;
   }
 
   public setHeader(response: any, name: string, value: string) {
@@ -96,6 +111,17 @@ export class AzureHttpRouter extends AbstractHttpAdapter {
 
   public getType(): string {
     return 'azure-http';
+  }
+
+  public applyVersionFilter(
+    handler: Function,
+    version: VersionValue,
+    versioningOptions: VersioningOptions
+  ) {
+    throw new NotImplementedException();
+    return (req, res, next) => {
+      return () => {};
+    };
   }
 
   public listen(port: any, ...args: any[]) {}
