@@ -3,23 +3,23 @@ version: 2
 aliases:
   - &restore-cache
     restore_cache:
-        name: Restore Yarn Package Cache
-        keys:
-          - yarn-packages-{{ checksum "yarn.lock" }}
+      name: Restore Yarn Package Cache
+      keys:
+        - yarn-packages-{{ checksum "yarn.lock" }}
   - &install-deps
     run:
-        name: Install dependencies
-        command: yarn
+      name: Install dependencies
+      command: yarn
   - &build-packages
     run:
-        name: Build
-        command: npm run build
+      name: Build
+      command: npm run build
 
 jobs:
   build:
     working_directory: ~/nest
     docker:
-      - image: cimg/node:17.9
+      - image: cimg/node:18.10
     steps:
       - checkout
       - restore_cache:
@@ -36,12 +36,12 @@ jobs:
             - ~/.cache/yarn
       - run:
           name: Build
-          command: npm run build    
-    
+          command: npm run build
+
   unit_tests:
     working_directory: ~/nest
     docker:
-      - image: cimg/node:17.9
+      - image: cimg/node:18.10
     steps:
       - checkout
       - restore_cache:
@@ -58,7 +58,7 @@ jobs:
             - ~/.cache/yarn
       - run:
           name: Tests
-          command: npm run test 
+          command: npm run test
 
 workflows:
   version: 2
