@@ -33,9 +33,7 @@ describe('Schematic Tests Nest Add', () => {
         rootModuleClassName: 'AppModule'
       };
 
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
       const files: string[] = tree.files;
       expect(files).toEqual([
         '/.eslintrc.js',
@@ -72,10 +70,7 @@ describe('Schematic Tests Nest Add', () => {
         rootModuleClassName: 'AppModule'
       };
 
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
-
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
       const fileContent = getFileContent(tree, '/nest-cli.json');
       expect(fileContent).toContain(`"sourceRoot": "src"`);
     });
@@ -89,10 +84,7 @@ describe('Schematic Tests Nest Add', () => {
         rootModuleClassName: 'AppModule'
       };
 
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
-
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
       const fileContent = getFileContent(tree, '/src/main.azure.ts');
 
       expect(fileContent).toContain(
@@ -109,10 +101,7 @@ describe('Schematic Tests Nest Add', () => {
         rootModuleClassName: 'AppModule'
       };
 
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
-
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
       const fileContent = getFileContent(tree, '/main/index.ts');
 
       expect(fileContent).toContain(
@@ -129,10 +118,7 @@ describe('Schematic Tests Nest Add', () => {
         rootModuleClassName: 'AppModule'
       };
 
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
-
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
       const fileContent = tree.get('webpack.config.js');
 
       expect(fileContent).toBeNull();
@@ -149,21 +135,16 @@ describe('Schematic Tests Nest Add', () => {
         sourceRoot: `apps/${projectName}/src`
       };
 
-      await runner
-        .runExternalSchematicAsync(
-          '@nestjs/schematics',
-          'sub-app',
-          {
-            name: projectName
-          },
-          nestTree
-        )
-        .toPromise();
+      await runner.runExternalSchematic(
+        '@nestjs/schematics',
+        'sub-app',
+        {
+          name: projectName
+        },
+        nestTree
+      );
 
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
-
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
       const files: string[] = tree.files;
       expect(files).toEqual([
         '/.eslintrc.js',
@@ -192,8 +173,8 @@ describe('Schematic Tests Nest Add', () => {
         `/apps/${projectName}/src/${projectName}.module.ts`,
         `/apps/${projectName}/src/${projectName}.service.ts`,
         `/apps/${projectName}/src/main.azure.ts`,
-        `/apps/${projectName}/test/app.e2e-spec.ts`,
         `/apps/${projectName}/test/jest-e2e.json`,
+        `/apps/${projectName}/test/app.e2e-spec.ts`,
         `/${projectName}/function.json`,
         `/${projectName}/index.ts`,
         `/${projectName}/sample.dat`,
@@ -209,20 +190,16 @@ describe('Schematic Tests Nest Add', () => {
         sourceRoot: `apps/${projectName}/src`
       };
 
-      await runner
-        .runExternalSchematicAsync(
-          '@nestjs/schematics',
-          'sub-app',
-          {
-            name: projectName
-          },
-          nestTree
-        )
-        .toPromise();
+      await runner.runExternalSchematic(
+        '@nestjs/schematics',
+        'sub-app',
+        {
+          name: projectName
+        },
+        nestTree
+      );
 
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
       const fileContent = getFileContent(tree, '/nest-cli.json');
       const parsedFile = JSON.parse(fileContent);
       expect(parsedFile.projects[projectName].sourceRoot).toEqual(
@@ -238,20 +215,16 @@ describe('Schematic Tests Nest Add', () => {
         sourceRoot: `apps/${projectName}/src`
       };
 
-      await runner
-        .runExternalSchematicAsync(
-          '@nestjs/schematics',
-          'sub-app',
-          {
-            name: projectName
-          },
-          nestTree
-        )
-        .toPromise();
+      await runner.runExternalSchematic(
+        '@nestjs/schematics',
+        'sub-app',
+        {
+          name: projectName
+        },
+        nestTree
+      );
 
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
       const fileContent = getFileContent(
         tree,
         `/apps/${projectName}/src/main.azure.ts`
@@ -270,20 +243,16 @@ describe('Schematic Tests Nest Add', () => {
         sourceRoot: `apps/${projectName}/src`
       };
 
-      await runner
-        .runExternalSchematicAsync(
-          '@nestjs/schematics',
-          'sub-app',
-          {
-            name: projectName
-          },
-          nestTree
-        )
-        .toPromise();
+      await runner.runExternalSchematic(
+        '@nestjs/schematics',
+        'sub-app',
+        {
+          name: projectName
+        },
+        nestTree
+      );
 
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
       const fileContent = getFileContent(tree, `/${projectName}/index.ts`);
 
       expect(fileContent).toContain(
@@ -300,19 +269,15 @@ describe('Schematic Tests Nest Add', () => {
         sourceRoot: `apps/${projectName}/src`
       };
 
-      await runner
-        .runExternalSchematicAsync(
-          '@nestjs/schematics',
-          'sub-app',
-          {
-            name: projectName
-          },
-          nestTree
-        )
-        .toPromise();
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
+      await runner.runExternalSchematic(
+        '@nestjs/schematics',
+        'sub-app',
+        {
+          name: projectName
+        },
+        nestTree
+      );
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
 
       const fileContent = getFileContent(
         tree,
@@ -329,19 +294,15 @@ describe('Schematic Tests Nest Add', () => {
         sourceRoot: `apps/${projectName}/src`
       };
 
-      await runner
-        .runExternalSchematicAsync(
-          '@nestjs/schematics',
-          'sub-app',
-          {
-            name: projectName
-          },
-          nestTree
-        )
-        .toPromise();
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
+      await runner.runExternalSchematic(
+        '@nestjs/schematics',
+        'sub-app',
+        {
+          name: projectName
+        },
+        nestTree
+      );
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
 
       const fileContent = getFileContent(tree, 'nest-cli.json');
       const parsedFile = JSON.parse(fileContent);
@@ -362,19 +323,15 @@ describe('Schematic Tests Nest Add', () => {
         sourceRoot: `apps/${projectName}/src`
       };
 
-      await runner
-        .runExternalSchematicAsync(
-          '@nestjs/schematics',
-          'sub-app',
-          {
-            name: projectName
-          },
-          nestTree
-        )
-        .toPromise();
-      const tree = await runner
-        .runSchematicAsync('nest-add', options, nestTree)
-        .toPromise();
+      await runner.runExternalSchematic(
+        '@nestjs/schematics',
+        'sub-app',
+        {
+          name: projectName
+        },
+        nestTree
+      );
+      const tree = await runner.runSchematic('nest-add', options, nestTree);
 
       const fileContent = getFileContent(tree, `${projectName}/function.json`);
       const parsedFile = JSON.parse(fileContent);
@@ -386,16 +343,14 @@ describe('Schematic Tests Nest Add', () => {
     runner: SchematicTestRunner,
     tree?: Tree
   ): Promise<UnitTestTree> {
-    return await runner
-      .runExternalSchematicAsync(
-        '@nestjs/schematics',
-        'application',
-        {
-          name: 'newproject',
-          directory: '.'
-        },
-        tree
-      )
-      .toPromise();
+    return await runner.runExternalSchematic(
+      '@nestjs/schematics',
+      'application',
+      {
+        name: 'newproject',
+        directory: '.'
+      },
+      tree
+    );
   }
 });
