@@ -1,10 +1,13 @@
-import { parseJson, strings } from '@angular-devkit/core';
+import { strings } from '@angular-devkit/core';
+import { parse as parseJson } from 'jsonc-parser';
 import {
   apply,
   chain,
   FileEntry,
   forEach,
-  mergeWith, noop, Rule,
+  mergeWith,
+  noop,
+  Rule,
   SchematicContext,
   SchematicsException,
   template,
@@ -50,7 +53,7 @@ function updateJsonFile<T>(
   if (source) {
     const sourceText = source.toString('utf-8');
     const json = parseJson(sourceText);
-    callback((json as {}) as T);
+    callback(json as {} as T);
     host.overwrite(path, JSON.stringify(json, null, 2));
   }
   return host;
