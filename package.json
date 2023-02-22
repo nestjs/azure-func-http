@@ -53,7 +53,7 @@
   "dependencies": {
     "cors": "2.8.5",
     "jsonc-parser": "^3.2.0",
-    "trouter": "3.2.0"
+    "trouter": "3.2.1"
   },
   "schematics": "./schematics/collection.json",
   "lint-staged": {
