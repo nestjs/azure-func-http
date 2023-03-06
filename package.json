@@ -40,7 +40,7 @@
     "@typescript-eslint/parser": "5.54.0",
     "@schematics/angular": "15.2.1",
     "eslint": "8.35.0",
-    "eslint-config-prettier": "8.6.0",
+    "eslint-config-prettier": "8.7.0",
     "eslint-plugin-import": "2.27.5",
     "husky": "8.0.3",
     "lint-staged": "13.1.2",
