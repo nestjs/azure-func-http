@@ -29,8 +29,8 @@
   "devDependencies": {
     "@angular-devkit/schematics": "^16.0.0",
     "@azure/functions": "3.5.1",
-    "@commitlint/cli": "17.8.1",
-    "@commitlint/config-angular": "17.8.1",
+    "@commitlint/cli": "18.0.0",
+    "@commitlint/config-angular": "18.0.0",
     "@nestjs/common": "10.2.7",
     "@nestjs/core": "10.2.7",
     "@nestjs/schematics": "10.0.2",
