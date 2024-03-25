@@ -38,7 +38,7 @@
     "@types/jest": "29.5.12",
     "@typescript-eslint/eslint-plugin": "7.3.1",
     "@typescript-eslint/parser": "7.3.1",
-    "@schematics/angular": "16.2.12",
+    "@schematics/angular": "16.2.13",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.29.1",
