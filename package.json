@@ -48,7 +48,7 @@
     "release-it": "17.1.1",
     "typescript": "5.5.3",
     "jest": "29.7.0",
-    "ts-jest": "29.2.2"
+    "ts-jest": "29.2.3"
   },
   "dependencies": {
     "cors": "2.8.5",
