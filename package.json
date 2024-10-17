@@ -27,7 +27,7 @@
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
-    "@angular-devkit/schematics": "^16.0.0",
+    "@angular-devkit/schematics": "^18.0.0",
     "@azure/functions": "3.5.1",
     "@commitlint/cli": "19.4.1",
     "@commitlint/config-angular": "19.4.1",
@@ -38,7 +38,7 @@
     "@types/jest": "29.5.12",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
-    "@schematics/angular": "16.2.15",
+    "@schematics/angular": "18.2.9",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.30.0",
