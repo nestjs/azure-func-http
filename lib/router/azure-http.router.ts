@@ -89,6 +89,14 @@ export class AzureHttpRouter extends AbstractHttpAdapter {
     return response.setHeader(name, value);
   }
 
+  public getHeader(response: any, name: string): string {
+    return response.getHeader(name);
+  }
+
+  public appendHeader(response: any, name: string, value: string) {
+    return response.appendHeader(name, value);
+  }
+
   public getRequestMethod(request: any): string {
     return request.method;
   }
