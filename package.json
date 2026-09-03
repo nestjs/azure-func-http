@@ -51,7 +51,7 @@
     "ts-jest": "29.2.5"
   },
   "dependencies": {
-    "cors": "2.8.5",
+    "cors": "2.8.6",
     "jsonc-parser": "^3.2.0",
     "trouter": "3.2.1"
   },
