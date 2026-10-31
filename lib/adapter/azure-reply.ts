@@ -46,6 +46,7 @@ export class AzureReply extends OutgoingMessage {
     }
 
     context.res.status = this.statusCode;
+    context.res.headers = this.getHeaders() || {};
     context.res.body = body;
     context.done();
   }
