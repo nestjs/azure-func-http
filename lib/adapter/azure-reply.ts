@@ -39,13 +39,18 @@ export class AzureReply extends OutgoingMessage {
     // If data was streamed out, get it back to body
     if (body === undefined && this.outputData.length > 0) {
       body = Buffer.concat(
-        this.outputData.map(o =>
+        this.outputData.map((o) =>
           Buffer.isBuffer(o.data) ? o.data : Buffer.from(o.data)
         )
       );
     }
 
     context.res.status = this.statusCode;
+    context.res.headers = Object.assign(
+      {},
+      context.res.headers,
+      this.getHeaders()
+    );
     context.res.body = body;
     context.done();
   }
